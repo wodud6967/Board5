@@ -17,4 +17,8 @@ public interface BoardMapper {
 
 	HashMap<String, Object> selectBno(BoardVo boardVo);
 
+	void incHit(BoardVo boardVo);
+
+	void deleteBoard(BoardVo boardVo);
+
 }

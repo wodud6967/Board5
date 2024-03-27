@@ -81,7 +81,27 @@ public class BoardController {
 	@RequestMapping("/View")
 	public ModelAndView view(BoardVo boardVo) {
 		List<MenuVo>  menuList   =  menuMapper.getMenuList();
+		//조회수 증가 (현재 bNo의 HIT = HIT +1)
+		boardMapper.incHit(boardVo);
+		
+		//bno로 조회한 결과
 		HashMap<String, Object> vo = boardMapper.selectBno(boardVo);
+		
+		/* BoardVo vo = boardMapper.selectBno(boardVo); 
+		/* String content = vo.getContent();
+		/* if(content != null)
+		 * content = content.replace("\n", "<br>");
+		 * vo.setContent(content);
+		 */
+		
+		//vo.content 안의 \n을 'br'로 변경한다.
+		String content = (String) vo.get("content");
+		if(content != null) {
+			content = content.replaceAll("\n", "<br>");
+			vo.put("content", content);
+		}
+		
+		
 		log.info("-----------------");
 		log.info("boardVo : {}", vo );
 		
@@ -91,6 +111,17 @@ public class BoardController {
 		mv.addObject("menuList", menuList);
 		mv.setViewName("board/view");
 		return mv;
+	}
+  //	http://localhost:9090/Board/Delete?bno=4&menu_id=MENU01
+	@RequestMapping("/Delete")
+	public ModelAndView Delete(BoardVo boardVo) {
+		boardMapper.deleteBoard(boardVo);
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("redirect:/Board/List?menu_id=MENU01" );
+		return mv;
+		
 	}
 }
 

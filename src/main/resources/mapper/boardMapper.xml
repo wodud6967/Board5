@@ -38,7 +38,12 @@
            BOARD
          WHERE BNO = #{ bno  }  
     </select>
-  
+  	<update id ="incHit">
+  		UPDATE BOARD
+  		   SET HIT = HIT +1
+  		 WHERE BNO = #{bno}
+  	
+  	</update>
     <insert id = "insertBoard">
     	INSERT INTO BOARD (
 		    BNO,
@@ -54,6 +59,11 @@
 		    #{writer}
 		)
     </insert>
+    <delete id ="deleteBoard">
+    	  DELETE  FROM  BOARD
+	    WHERE  BNO = #{ bno  } 
+    	
+    </delete>
 </mapper>
 
 
