@@ -25,6 +25,20 @@
          WHERE MENU_ID = #{ menu_id  }  
          ORDER BY  BNO DESC 
     </select>
+    <select id ="getBoard">
+    	SELECT  
+    	    BNO
+    	  , MENU_ID 
+    	  , TITLE  
+    	  , CONTENT    
+    	  , WRITER
+    	  , TO_CHAR(REGDATE, 'YYYY-MM-DD') REGDATE
+    	  , HIT
+    	 FROM  
+           BOARD
+         WHERE BNO = #{ bno  }  
+         
+    </select>
     <select id ="selectBno" resultMap = "getBoardMap">
     	SELECT  
     	    BNO
@@ -64,6 +78,14 @@
 	    WHERE  BNO = #{ bno  } 
     	
     </delete>
+    
+    <update id="updateBoard">
+    	UPDATE    BOARD
+    	   SET    TITLE = #{title},
+    	        CONTENT = #{content}
+    	 WHERE      BNO = #{bno}
+    </update>
+    
 </mapper>
 
 

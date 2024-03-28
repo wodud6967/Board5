@@ -41,6 +41,8 @@ public class BoardController {
 				
 		ModelAndView  mv         =  new ModelAndView();
 		
+	
+		  
 		  String menu_id = menuVo.getMenu_id(); 
 		  mv.addObject("menu_id", menu_id );
 		 
@@ -122,6 +124,29 @@ public class BoardController {
 		mv.setViewName("redirect:/Board/List?menu_id=MENU01" );
 		return mv;
 		
+	}
+	@RequestMapping("/UpdateForm")
+	public ModelAndView UpdateForm(BoardVo boardVo) {
+		BoardVo vo = boardMapper.getBoard(boardVo);
+		
+		ModelAndView mv = new ModelAndView();
+	    mv.addObject("vo",vo);
+		mv.setViewName("board/update");
+		return mv;
+	}
+	// http://localhost:9090/Board/Update
+	@RequestMapping("Update")
+	public ModelAndView update(BoardVo boardVo) {
+		
+		//수정
+		boardMapper.updateBoard(boardVo);
+		
+		ModelAndView mv = new ModelAndView();
+		String menu_id  = boardVo.getMenu_id();
+		
+		
+		mv.setViewName("redirect:/Board/List?menu_id=" +menu_id);
+		return mv;
 	}
 }
 
