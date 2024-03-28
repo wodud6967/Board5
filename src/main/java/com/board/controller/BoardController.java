@@ -128,9 +128,10 @@ public class BoardController {
 	@RequestMapping("/UpdateForm")
 	public ModelAndView UpdateForm(BoardVo boardVo) {
 		BoardVo vo = boardMapper.getBoard(boardVo);
-		
+		List<MenuVo> menuList = menuMapper.getMenuList();
 		ModelAndView mv = new ModelAndView();
 	    mv.addObject("vo",vo);
+	    mv.addObject("menuList",menuList);
 		mv.setViewName("board/update");
 		return mv;
 	}
@@ -140,6 +141,7 @@ public class BoardController {
 		
 		//수정
 		boardMapper.updateBoard(boardVo);
+		
 		
 		ModelAndView mv = new ModelAndView();
 		String menu_id  = boardVo.getMenu_id();
